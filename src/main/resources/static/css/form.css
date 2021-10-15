@@ -1,0 +1,42 @@
+body {
+	font-family: "Inconsolata", monospace;
+	background: rgb(216,226,220);
+background: radial-gradient(circle, rgba(216,226,220,1) 0%, rgba(232,232,228,1) 54%, rgba(236,228,219,1) 100%);
+
+/* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
+
+}
+
+form {
+	background-color: #3E444A;
+	padding: 3%;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+label {
+	color: #e5e5e5;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+
+.error {
+	color: #e5e5e5;
+	font-family: inherit;
+	font-size: 80%;
+	text-align: center;
+}
+
+button {
+	font-family: inherit;
+	font-size: 1em;
+}
+
+.btn {
+    font-family: inherit;
+	margin-top: 5%;
+}
