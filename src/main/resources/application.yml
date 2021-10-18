@@ -11,5 +11,5 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-      thymeleaf:
+    thymeleaf:
         cache: false

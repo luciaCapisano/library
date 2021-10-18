@@ -21,8 +21,8 @@
 						<tr>
 							<th scope="col">ISBN</th>
 							<th scope="col">Título</th>
-							<!-- <th scope="col">Autor/a</th>
-							<th scope="col">Editorial</th> -->
+							<th scope="col">Autor/a</th>
+							<th scope="col">Editorial</th>
 							<th scope="col">Año</th>
 							<th scope="col">Nº Total</th>
 							<th scope="col">Nº Prestados</th>
@@ -34,8 +34,8 @@
 						<tr th:each="b, iterator : ${books}">
 							<td th:text="${b.isbn}"></td>
 							<td th:text="${b.title}"></td>
-							<!-- <td th:text="${b.autor.name}" th:selected="${book.author != null && author.id == book.author.id}"></td>
-							<td th:text="${b.publisher.name}" th:selected="${book.publisher != null && book.publisher.id == publisher.id}"></td> -->
+							<td th:text="${b.author.name}"></td>
+							<td th:text="${b.publisher.name}"></td>
 							<td th:text="${b.legalYear}"></td>
 							<td th:text="${b.totalQuantity}"></td>
 							<td th:text="${b.givenQuantity}"></td>

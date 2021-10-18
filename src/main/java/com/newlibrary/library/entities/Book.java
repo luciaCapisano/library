@@ -4,8 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,10 +22,8 @@ public class Book implements Serializable {
     private Integer givenQuantity; 
     private Integer availableQuantity;
     private Boolean registered;
-    @OneToOne
-    @JoinColumn(name = "id")
+    @ManyToOne
     private Author author; 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @ManyToOne
     private Publisher publisher;
 }

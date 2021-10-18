@@ -30,7 +30,7 @@ public class AuthorController {
         } catch (Exception e) {
             model.put("error", e.getMessage());
         }
-        return "author-form.html";
+        return "redirect:/author/list";
     }
 
     @GetMapping("/list")

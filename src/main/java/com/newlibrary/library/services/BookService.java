@@ -4,9 +4,7 @@ import com.newlibrary.library.entities.Author;
 import com.newlibrary.library.entities.Book;
 import com.newlibrary.library.entities.Publisher;
 import com.newlibrary.library.exceptions.ServiceException;
-import com.newlibrary.library.repositories.AuthorRepository;
 import com.newlibrary.library.repositories.BookRepository;
-import com.newlibrary.library.repositories.PublisherRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +19,10 @@ public class BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    private PublisherRepository publisherRepository;
+    private PublisherService publisherService;
 
     @Autowired
-    private AuthorRepository authorRepository;
+    private AuthorService authorService;
 
     public List<Book> listAll() {
         return bookRepository.findAll();
@@ -32,8 +30,8 @@ public class BookService {
 
     @Transactional
     public void save(Long isbn, String title, Integer legalYear, Integer totalQuantity, Integer givenQuantity, String idAuthor, String idPublisher) throws ServiceException {
-        Publisher publisher = publisherRepository.getById(idPublisher);
-        Author author = authorRepository.getById(idAuthor);
+        Publisher publisher = publisherService.findById(idPublisher);
+        Author author = authorService.findById(idAuthor);
         validate(isbn, title, legalYear, totalQuantity, givenQuantity, publisher, author);
         Book book = new Book();
         book.setIsbn(isbn);
@@ -52,8 +50,8 @@ public class BookService {
     public void edit(String id, Long isbn, String title, Integer legalYear, Integer totalQuantity, Integer givenQuantity, String idAuthor, String idPublisher) throws ServiceException {
         Optional<Book> result = bookRepository.findById(id);
         if (result.isPresent()) {
-            Publisher publisherSet = publisherRepository.getById(idPublisher);
-            Author authorSet = authorRepository.getById(idAuthor);
+            Publisher publisherSet = publisherService.findById(idPublisher);
+            Author authorSet = authorService.findById(idAuthor);
             validate(isbn, title, legalYear, totalQuantity, givenQuantity, publisherSet, authorSet);
             Book book = result.get();
             book.setIsbn(isbn);

@@ -42,15 +42,12 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBook(ModelMap model, @RequestParam Long isbn, @RequestParam String title, @RequestParam Integer legalYear, @RequestParam Integer totalQuantity, @RequestParam Integer givenQuantity, @RequestParam String idAuthor, @RequestParam String idPublisher) {
-        
-        model.addAttribute("publishers", publisherService.listRegistered());
-        model.addAttribute("authors", authorService.listRegistered());
 
         try {
             bookService.save(isbn, title, legalYear, totalQuantity, givenQuantity, idAuthor, idPublisher);
         } catch (Exception e) {
             model.put("error", e.getMessage());
         }
-        return "book-form.html";
+        return "redirect:/book/list";
     }
 }

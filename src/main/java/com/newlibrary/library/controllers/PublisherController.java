@@ -30,7 +30,7 @@ public class PublisherController {
         } catch (Exception e) {
             model.put("error", e.getMessage());
         }
-        return "publisher-form.html";
+         return "redirect:/publisher/list";
     }
 
     @GetMapping("/list")
