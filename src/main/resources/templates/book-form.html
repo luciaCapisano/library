@@ -17,6 +17,8 @@
 				class="col-6 mx-auto"
 			>
 				<div class="form-group">
+					<p class="error" th:if="${error != null}" th:text="${error}"></p>
+
 					<label for="isbn">ISBN</label>
 					<input type="number" class="form-control" name="isbn" />
 				</div>
@@ -60,7 +62,7 @@
 					<input type="number" class="form-control" name="givenQuantity" />
 				</div>
 				<div class="col d-flex justify-content-center">
-					<button type="submit" class="btn btn-light">Enviar</button>
+					<button type="submit" class="btn btn-light">Guardar</button>
 				</div>
 			</form>
 		</div>
