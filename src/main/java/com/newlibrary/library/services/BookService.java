@@ -28,6 +28,17 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    //    public List<Book> listRegistered(){
+//        return bookRepository.findRegistered();
+//    }
+//    public List<Book> listUnregistered(){
+//        return bookRepository.findUnregistered();
+//    }    
+    
+    public Book findById(String id){
+        return bookRepository.getById(id);
+    }
+    
     @Transactional
     public void save(Long isbn, String title, Integer legalYear, Integer totalQuantity, Integer givenQuantity, String idAuthor, String idPublisher) throws ServiceException {
         Publisher publisher = publisherService.findById(idPublisher);
@@ -67,15 +78,11 @@ public class BookService {
     }
 
     public void unregister(String id) {
-        Book book = bookRepository.findById(id).get();
+        Book book = bookRepository.getById(id);
         book.setRegistered(false);
+        bookRepository.save(book);
     }
 
-//    public List<Book> listRegistered(){
-//        return bookRepository.findRegistered();
-//    }
-    
-    
     public void validate(Long isbn, String title, Integer legalYear, Integer totalQuantity, Integer givenQuantity, Publisher publisher, Author author) throws ServiceException {
         if (isbn == null) {
             throw new ServiceException("El ISBN no puede ser nulo ");
@@ -84,7 +91,7 @@ public class BookService {
         if (bookRepository.searchByISBN(isbn) != null) {
             throw new ServiceException("El isbn ingresado ya existe");
         }
-        
+
         if (title.isEmpty() || title == null) {
             throw new ServiceException("El título del libro no puede ser nulo ");
         }

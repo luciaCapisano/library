@@ -16,4 +16,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
 //    @Query("SELECT b FROM Book b WHERE b.registered = 1 ORDER BY b.name")
 //     List<Book> findRegistered();
 
+    //    @Query("SELECT b FROM Book b WHERE b.registered = 1 ORDER BY b.name")
+//     List<Book> findUnregistered();
+    
 }

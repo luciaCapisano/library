@@ -19,17 +19,19 @@
 				<div class="form-group">
 					<p class="error" th:if="${error != null}" th:text="${error}"></p>
 
+					<input hidden th:field="${book.id}"/>
+
 					<label for="isbn">ISBN</label>
-					<input type="number" class="form-control" name="isbn" />
+					<input type="number" class="form-control" name="isbn" th:field="${book.isbn}" />
 				</div>
 				<div class="form-group">
 					<label for="title">Título</label>
-					<input type="text" class="form-control" name="title" />
+					<input type="text" class="form-control" name="title" th:field="${book.title}" />
 				</div>
 
 				<div class="form-group">
 					<label for="author" class="form-label mt-4">Autor</label>
-					<select class="form-select" name="idAuthor">
+					<select class="form-select" name="idAuthor" th:field="${book.author.id}">
 						<option
 							th:each="a : ${authors}"
 							th:text="${a.name}"
@@ -40,7 +42,7 @@
 
 				<div class="form-group">
 					<label for="publisher" class="form-label mt-4">Editorial</label>
-					<select class="form-select" name="idPublisher">
+					<select class="form-select" name="idPublisher" th:field="${book.publisher.id}">
 						<option
 							th:each="p : ${publishers}"
 							th:text="${p.name}"
@@ -51,15 +53,15 @@
 
 				<div class="form-group">
 					<label for="legalYear">Año</label>
-					<input type="number" class="form-control" name="legalYear" />
+					<input type="number" class="form-control" name="legalYear" th:field="${book.legalYear}" />
 				</div>
 				<div class="form-group">
 					<label for="totalQuantity">Cantidad total de ejemplares</label>
-					<input type="number" class="form-control" name="totalQuantity" />
+					<input type="number" class="form-control" name="totalQuantity" th:field="${book.totalQuantity}"/>
 				</div>
 				<div class="form-group">
 					<label for="givenQuantity">Cantidad de ejemplares prestados</label>
-					<input type="number" class="form-control" name="givenQuantity" />
+					<input type="number" class="form-control" name="givenQuantity" th:field="${book.givenQuantity}"/>
 				</div>
 				<div class="col d-flex justify-content-center">
 					<button type="submit" class="btn btn-light">Guardar</button>

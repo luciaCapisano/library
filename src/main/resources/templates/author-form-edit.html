@@ -21,8 +21,9 @@
 		<div>
 			<form th:action="@{/author/edit}" method="POST" th:object="${author}">
                 <div class="form-group">
-					<input hidden th:field="${author.id}"/>
 					<p class="error" th:if="${error != null}" th:text="${error}"></p>
+					<input hidden th:field="${author.id}"/>
+
 					<label for="titleInput">Nombre</label>
 					<input type="text" class="form-control" name="name" th:field="${author.name}"/>
 				</br>

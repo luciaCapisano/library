@@ -1,6 +1,7 @@
 package com.newlibrary.library.controllers;
 
 import com.newlibrary.library.entities.Book;
+import com.newlibrary.library.exceptions.ServiceException;
 import com.newlibrary.library.services.AuthorService;
 import com.newlibrary.library.services.BookService;
 import com.newlibrary.library.services.PublisherService;
@@ -48,19 +49,36 @@ public class BookController {
             model.addAttribute("authors", authorService.listRegistered());
             bookService.save(isbn, title, legalYear, totalQuantity, givenQuantity, idAuthor, idPublisher);
             return "redirect:/book/list";
-        } catch (Exception e) {
+        } catch (ServiceException e) {
             model.put("error", e.getMessage());
             return "book-form.html";
         }
     }
 
-    @GetMapping("/edit")
-    public String editBook() {
+    
+    @PostMapping("/edit")
+    public String editBook(ModelMap model, @RequestParam String id, @RequestParam Long isbn, @RequestParam String title, @RequestParam Integer legalYear, @RequestParam Integer totalQuantity, @RequestParam Integer givenQuantity, @RequestParam String idAuthor, @RequestParam String idPublisher) {
+
+        try {
+            Book book = bookService.findById(id);
+            model.addAttribute("book", book);
+            model.addAttribute("publishers", publisherService.listRegistered());
+            model.addAttribute("authors", authorService.listRegistered());
+            bookService.edit(title, isbn, title, legalYear, totalQuantity, givenQuantity, idAuthor, idPublisher);
         return "book-form-edit";
+        } catch (ServiceException e) {
+             model.put("error", e.getMessage());
+             return "redirect:/book/list";
+        }
+
     }
 
-    @PostMapping("/edit")
-    public String saveEditBook() {
+    @GetMapping("/edit")
+    public String editBook(ModelMap model, @RequestParam String id) {
+        Book book = bookService.findById(id);
+        model.addAttribute("book", book);
+        model.addAttribute("publishers", publisherService.listRegistered());
+        model.addAttribute("authors", authorService.listRegistered());
         return "book-form-edit";
     }
 
@@ -73,5 +91,4 @@ public class BookController {
         }
         return "redirect:/book/list";
     }
-
 }
