@@ -35,8 +35,10 @@ public class AuthorController {
 
     @GetMapping("/list")
     public String list(ModelMap model) {
-        List<Author> authors = authorService.listAll();
-        model.put("authors", authors);
+        List<Author> RegisteredAuthors = authorService.listRegistered();
+        List<Author> UnregisteredAuthors = authorService.listUnregistered();
+        model.put("RegisteredAuthors", RegisteredAuthors);
+        model.put("UnregisteredAuthors", UnregisteredAuthors);
         return "author-list.html";
     }
 

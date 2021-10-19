@@ -72,6 +72,10 @@ public class AuthorService {
         return authorRepository.searchRegistered();
     }
     
+        public List<Author> listUnregistered(){
+        return authorRepository.searchUnregistered();
+    }
+    
     public Author findById(String id){
         Author result = authorRepository.getById(id);
         return result;

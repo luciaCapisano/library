@@ -15,6 +15,9 @@ public interface AuthorRepository extends JpaRepository<Author, String> {
     @Query("SELECT a FROM Author a WHERE a.registered = 1 ORDER BY a.name")
     List<Author> searchRegistered();
     
+        @Query("SELECT a FROM Author a WHERE a.registered = 0 ORDER BY a.name")
+    List<Author> searchUnregistered();
+    
     @Query("SELECT a FROM Author a WHERE a.name LIKE :nameSearch")
     public List<Author> findByName(@Param("nameSearch") String name);
 

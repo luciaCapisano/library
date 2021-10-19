@@ -19,7 +19,7 @@ public class BookController {
 
     @Autowired
     BookService bookService;
-    
+
     @Autowired
     PublisherService publisherService;
 
@@ -44,10 +44,34 @@ public class BookController {
     public String saveBook(ModelMap model, @RequestParam Long isbn, @RequestParam String title, @RequestParam Integer legalYear, @RequestParam Integer totalQuantity, @RequestParam Integer givenQuantity, @RequestParam String idAuthor, @RequestParam String idPublisher) {
 
         try {
+            model.addAttribute("publishers", publisherService.listRegistered());
+            model.addAttribute("authors", authorService.listRegistered());
             bookService.save(isbn, title, legalYear, totalQuantity, givenQuantity, idAuthor, idPublisher);
+            return "redirect:/book/list";
+        } catch (Exception e) {
+            model.put("error", e.getMessage());
+            return "book-form.html";
+        }
+    }
+
+    @GetMapping("/edit")
+    public String editBook() {
+        return "book-form-edit";
+    }
+
+    @PostMapping("/edit")
+    public String saveEditBook() {
+        return "book-form-edit";
+    }
+
+    @GetMapping("/delete")
+    public String deleteBook(ModelMap model, @RequestParam String id) {
+        try {
+            bookService.unregister(id);
         } catch (Exception e) {
             model.put("error", e.getMessage());
         }
         return "redirect:/book/list";
     }
+
 }
