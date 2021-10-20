@@ -17,13 +17,14 @@
 				<div class="display-2 text-center">AGREGAR UN AUTOR</div>
 			</div>
 		</div>
-
+		
 		<div>
 			<form th:action="@{/author/save}" method="POST">
+				<div th:insert="/fragments/body :: errorRedBlock"></div>
                 <div class="form-group">
-					<p class="error" th:if="${error != null}" th:text="${error}"></p>
+					<p ></p>
 					<label for="titleInput">Nombre</label>
-					<input type="text" class="form-control" name="name"/>
+					<input type="text" class="form-control" name="name" required/>
 				</br>
 				<!-- <label for="flexRadioDefault1">¿Activo?</label>
 					<div class="form-check">

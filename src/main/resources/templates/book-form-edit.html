@@ -17,16 +17,16 @@
 				class="col-6 mx-auto"
 			>
 				<div class="form-group">
-					<p class="error" th:if="${error != null}" th:text="${error}"></p>
+					<div th:insert="/fragments/body :: errorRedBlock"></div>
 
 					<input hidden th:field="${book.id}"/>
 
 					<label for="isbn">ISBN</label>
-					<input type="number" class="form-control" name="isbn" th:field="${book.isbn}" />
+					<input type="number" class="form-control" name="isbn" th:field="${book.isbn}" required/>
 				</div>
 				<div class="form-group">
 					<label for="title">Título</label>
-					<input type="text" class="form-control" name="title" th:field="${book.title}" />
+					<input type="text" class="form-control" name="title" th:field="${book.title}" required/>
 				</div>
 
 				<div class="form-group">
@@ -53,15 +53,15 @@
 
 				<div class="form-group">
 					<label for="legalYear">Año</label>
-					<input type="number" class="form-control" name="legalYear" th:field="${book.legalYear}" />
+					<input type="number" class="form-control" name="legalYear" th:field="${book.legalYear}" required/>
 				</div>
 				<div class="form-group">
 					<label for="totalQuantity">Cantidad total de ejemplares</label>
-					<input type="number" class="form-control" name="totalQuantity" th:field="${book.totalQuantity}"/>
+					<input type="number" class="form-control" name="totalQuantity" th:field="${book.totalQuantity}" min="0" required/>
 				</div>
 				<div class="form-group">
 					<label for="givenQuantity">Cantidad de ejemplares prestados</label>
-					<input type="number" class="form-control" name="givenQuantity" th:field="${book.givenQuantity}"/>
+					<input type="number" class="form-control" name="givenQuantity" th:field="${book.givenQuantity}" min="0" required/>
 				</div>
 				<div class="col d-flex justify-content-center">
 					<button type="submit" class="btn btn-light">Guardar</button>

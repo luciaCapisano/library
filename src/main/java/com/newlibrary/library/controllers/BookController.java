@@ -70,7 +70,6 @@ public class BookController {
              model.put("error", e.getMessage());
              return "redirect:/book/list";
         }
-
     }
 
     @GetMapping("/edit")

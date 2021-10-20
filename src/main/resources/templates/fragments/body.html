@@ -34,3 +34,18 @@
         crossorigin="anonymous"
     ></script>
 </header>
+
+
+<header th:fragment="errorRedBlock">
+    <div class="alert alert-dismissible alert-danger" th:if="${error != null}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong  class="error" th:text="${error}"></strong> <a href="#" class="alert-link"></a>
+      </div>
+</header>
+
+<!-- <header th:fragment="successBlock">
+    <div class="alert alert-dismissible alert-success" th:if="${success != null}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong  class="success" th:text="${success}"></strong> <a href="#" class="alert-link"></a>
+      </div>
+</header> -->

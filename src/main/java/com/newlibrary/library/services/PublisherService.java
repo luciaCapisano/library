@@ -64,7 +64,7 @@ public class PublisherService {
     }
 
     public void validate(String name) throws ServiceException {
-        if (name == null || name.isEmpty() || name.contains("  ")) {
+        if (name == null || name.isEmpty() || name.equals(" ")|| name.contains("  ")) {
             throw new ServiceException("El nombre de la editorial no puede estar vacío");
         }
 

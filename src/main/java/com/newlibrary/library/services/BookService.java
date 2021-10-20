@@ -112,6 +112,10 @@ public class BookService {
         if (totalQuantity < 0) {
             throw new ServiceException("No puede haber existencias nulas");
         }
+        
+        if (totalQuantity == 0) {
+            throw new ServiceException("No puede ingresarse un libro sin existencias");
+        }
 
         if (totalQuantity == null) {
             throw new ServiceException("No puede haber existencias nulas");

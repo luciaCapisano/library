@@ -21,7 +21,7 @@
 		<div>
 			<form th:action="@{/author/edit}" method="POST" th:object="${author}">
                 <div class="form-group">
-					<p class="error" th:if="${error != null}" th:text="${error}"></p>
+					<div th:insert="/fragments/body :: errorRedBlock"></div>
 					<input hidden th:field="${author.id}"/>
 
 					<label for="titleInput">Nombre</label>

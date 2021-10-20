@@ -18,11 +18,11 @@
 
 		<div>
 			<form th:action="@{/publisher/edit}" method="POST" th:object="${publisher}">
+				<div th:insert="/fragments/body :: errorRedBlock"></div>
 				<div class="form-group">
-					<p class="error" th:text="${error}"></p>
 					<input hidden th:field="${publisher.id}"/>
 					<label for="titleInput">Nombre</label>
-					<input type="text" class="form-control" name="name" th:field="${publisher.name}"/>
+					<input type="text" class="form-control" name="name" th:field="${publisher.name}" required/>
 				</div>
 				<label for="flexRadioDefault1">¿Activo?</label>
 					<div class="form-check">

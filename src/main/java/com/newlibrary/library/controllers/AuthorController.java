@@ -1,6 +1,7 @@
 package com.newlibrary.library.controllers;
 
 import com.newlibrary.library.entities.Author;
+import com.newlibrary.library.exceptions.ServiceException;
 import com.newlibrary.library.services.AuthorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,11 @@ public class AuthorController {
     public String save(ModelMap model, @RequestParam String name) {
         try {
             authorService.save(name);
-        } catch (Exception e) {
+            return "redirect:/author/list";
+        } catch (ServiceException e) {
             model.put("error", e.getMessage());
+            return "author-form";
         }
-        return "redirect:/author/list";
     }
 
     @GetMapping("/list")
@@ -49,8 +51,8 @@ public class AuthorController {
     }
 
     @GetMapping("/edit")
-    public String editAutor(ModelMap model, @RequestParam String id){
-          try {
+    public String editAutor(ModelMap model, @RequestParam String id) {
+        try {
             Author author = authorService.findById(id);
             model.addAttribute("author", author);
             return "author-form-edit.html";
@@ -59,13 +61,12 @@ public class AuthorController {
             return "redirect:/author/list";
         }
     }
-    
-    
+
     @PostMapping("/edit")
     public String editAuthor(ModelMap model, @RequestParam String id, @RequestParam String name, @RequestParam Boolean registered) {
         try {
-           Author author = authorService.findById(id);
-           model.addAttribute("author", author);
+            Author author = authorService.findById(id);
+            model.addAttribute("author", author);
             authorService.edit(id, name, registered);
             return "redirect:/author/list";
         } catch (Exception e) {

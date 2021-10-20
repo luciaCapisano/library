@@ -19,9 +19,9 @@
 		<div>
 			<form th:action="@{/publisher/save}" method="POST">
 				<div class="form-group">
-					<p class="error" th:text="${error}"></p>
+					<div th:insert="/fragments/body :: errorRedBlock"></div>
 					<label for="titleInput">Nombre</label>
-					<input type="text" class="form-control" name="name" />
+					<input type="text" class="form-control" name="name" required/>
 				</div>
 				<button type="submit" class="btn btn-light">Guardar</button>
 			</form>
