@@ -15,6 +15,9 @@ public interface PublisherRepository extends JpaRepository<Publisher, String> {
     @Query ("SELECT p FROM Publisher p WHERE p.registered = 1 ORDER BY p.name")
     public List<Publisher> searchRegistered();
     
+     @Query ("SELECT p FROM Publisher p WHERE p.registered = 0 ORDER BY p.name")
+    public List<Publisher> searchUnregistered();
+    
 //    @Query("SELECT p.id FROM Publisher p WHERE p.name LIKE :nameSearch")
 //    public String searchByName(@Param("nameSearch") String nameSearch);
 

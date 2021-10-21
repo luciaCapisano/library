@@ -15,6 +15,9 @@ public class PublisherService {
     @Autowired
     PublisherRepository publisherRepository;
 
+    @Autowired
+    BookService bookService;
+
     @Transactional
     public Publisher save(String name) throws ServiceException {
         validate(name);
@@ -44,9 +47,20 @@ public class PublisherService {
     }
 
     @Transactional
-    public Publisher unregister(String id) {
-        Publisher publisher = publisherRepository.findById(id).get();
-        publisher.setRegistered(false);
+    public Publisher unregister(String id) throws ServiceException {
+        if (bookService.findByPublisher(id).isEmpty()) {
+            Publisher publisher = publisherRepository.findById(id).get();
+            publisher.setRegistered(false);
+            return publisherRepository.save(publisher);
+        } else {
+            throw new ServiceException("La editorial no puede ser eliminada porque posee libros asociados");
+        }
+    }
+    
+    @Transactional
+    public Publisher reEstablish(String id){
+        Publisher publisher = publisherRepository.getById(id);
+        publisher.setRegistered(true);
         return publisherRepository.save(publisher);
     }
 
@@ -54,17 +68,20 @@ public class PublisherService {
         return publisherRepository.findAll();
     }
 
-    public List<Publisher> listRegistered(){
+    public List<Publisher> listRegistered() {
         return publisherRepository.searchRegistered();
     }
     
-    
+        public List<Publisher> listUnregistered() {
+        return publisherRepository.searchUnregistered();
+    }
+
     public Publisher findById(String id) {
         return publisherRepository.getById(id);
     }
 
     public void validate(String name) throws ServiceException {
-        if (name == null || name.isEmpty() || name.equals(" ")|| name.contains("  ")) {
+        if (name == null || name.isEmpty() || name.equals(" ") || name.contains("  ")) {
             throw new ServiceException("El nombre de la editorial no puede estar vacío");
         }
 

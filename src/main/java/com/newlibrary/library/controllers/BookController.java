@@ -55,7 +55,6 @@ public class BookController {
         }
     }
 
-    
     @PostMapping("/edit")
     public String editBook(ModelMap model, @RequestParam String id, @RequestParam Long isbn, @RequestParam String title, @RequestParam Integer legalYear, @RequestParam Integer totalQuantity, @RequestParam Integer givenQuantity, @RequestParam String idAuthor, @RequestParam String idPublisher) {
 

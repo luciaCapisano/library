@@ -39,6 +39,14 @@ public class BookService {
         return bookRepository.getById(id);
     }
     
+    public List<Book> findByAuthor(String id){
+        return bookRepository.getByAuthor(id);
+    }
+    
+    public List<Book> findByPublisher(String id){
+        return bookRepository.getByPublisher(id);
+    }
+    
     @Transactional
     public void save(Long isbn, String title, Integer legalYear, Integer totalQuantity, Integer givenQuantity, String idAuthor, String idPublisher) throws ServiceException {
         Publisher publisher = publisherService.findById(idPublisher);

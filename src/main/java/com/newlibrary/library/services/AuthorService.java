@@ -15,6 +15,9 @@ public class AuthorService {
     @Autowired
     AuthorRepository authorRepository;
 
+    @Autowired
+    BookService bookService;
+
     public void consult() {
 
     }
@@ -22,11 +25,11 @@ public class AuthorService {
     @Transactional
     public void save(String name) throws ServiceException {
         validate(name);
-         
+
         if (!authorRepository.findByName(name).isEmpty()) {
             throw new ServiceException("El autor ingresado ya se encuentra en el sistema");
         }
-        
+
         Author author = new Author();
         author.setName(name);
         author.setRegistered(true);
@@ -46,13 +49,18 @@ public class AuthorService {
             throw new ServiceException("No se encontró el autor solicitado");
         }
     }
-    
-    public void delete(String id){
+
+    @Transactional
+    public void delete(String id) throws ServiceException {
         Author result = authorRepository.getById(id);
+        if (bookService.findByAuthor(id).isEmpty()) {
             result.setRegistered(false);
             authorRepository.save(result);
+        } else {
+            throw new ServiceException("El autor no puede ser eliminado porque posee libros asociados");
+        }
     }
-    
+
     public void unregister(String id) throws ServiceException {
         Optional<Author> result = authorRepository.findById(id);
         if (result.isPresent()) {
@@ -60,33 +68,43 @@ public class AuthorService {
             author.setRegistered(false);
             authorRepository.save(author);
         } else {
-              throw new ServiceException("No se encontró el autor solicitado");
+            throw new ServiceException("No se encontró el autor solicitado");
         }
     }
 
-    public List<Author> listAll(){
+    @Transactional
+    public void reEstablish(String id) throws ServiceException {
+        Optional<Author> result = authorRepository.findById(id);
+        if (result.isPresent()) {
+            Author author = result.get();
+            author.setRegistered(true);
+            authorRepository.save(author);
+        } else {
+            throw new ServiceException("No se encontró el autor solicitado");
+        }
+    }
+
+    public List<Author> listAll() {
         return authorRepository.findAll();
     }
-    
-    public List<Author> listRegistered(){
+
+    public List<Author> listRegistered() {
         return authorRepository.searchRegistered();
     }
-    
-        public List<Author> listUnregistered(){
+
+    public List<Author> listUnregistered() {
         return authorRepository.searchUnregistered();
     }
-    
-    public Author findById(String id){
+
+    public Author findById(String id) {
         Author result = authorRepository.getById(id);
         return result;
     }
-    
-    
+
     public void validate(String name) throws ServiceException {
         if (name == null || name.isEmpty() || name.equals(" ") || name.contains("  ")) {
             throw new ServiceException("El nombre del autor no puede estar vacío");
         }
-        
 
     }
 }

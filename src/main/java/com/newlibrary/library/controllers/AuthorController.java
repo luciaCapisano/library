@@ -45,9 +45,29 @@ public class AuthorController {
     }
 
     @GetMapping("/delete")
-    public String deleteAuthor(@RequestParam String id) {
-        authorService.delete(id);
-        return "redirect:/author/list";
+    public String deleteAuthor(ModelMap model, @RequestParam String id) {
+        try {
+            authorService.delete(id);
+            return "redirect:/author/list";
+        } catch (Exception e) {
+            model.put("error", e.getMessage());
+            List<Author> RegisteredAuthors = authorService.listRegistered();
+            List<Author> UnregisteredAuthors = authorService.listUnregistered();
+            model.put("RegisteredAuthors", RegisteredAuthors);
+            model.put("UnregisteredAuthors", UnregisteredAuthors);
+            return "author-list.html";
+        }
+    }
+
+    @GetMapping("/reestablish")
+    public String reEstablishAuthor(ModelMap model, @RequestParam String id) {
+        try {
+            authorService.reEstablish(id);
+            return "redirect:/author/list";
+        } catch (Exception e) {
+            model.put("error", e.getMessage());
+            return "author-list.html";
+        }
     }
 
     @GetMapping("/edit")
@@ -73,7 +93,6 @@ public class AuthorController {
             model.put("error", e.getMessage());
             return "author-form-edit.html";
         }
-
     }
 
 }

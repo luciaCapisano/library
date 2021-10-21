@@ -27,7 +27,7 @@ public class PublisherController {
     public String save(ModelMap model, @RequestParam String name) {
         try {
             publisherService.save(name);
-         return "redirect:/publisher/list";
+            return "redirect:/publisher/list";
         } catch (Exception e) {
             model.put("error", e.getMessage());
             return "publisher-form.html";
@@ -36,8 +36,11 @@ public class PublisherController {
 
     @GetMapping("/list")
     public String list(ModelMap model) {
-        List<Publisher> publishers = publisherService.listAll();
-        model.put("publishers", publishers);
+        List<Publisher> registeredPublishers = publisherService.listRegistered();
+        List<Publisher> unregisteredPublishers = publisherService.listUnregistered();
+        model.put("registeredPublishers", registeredPublishers);
+        model.put("unregisteredPublishers", unregisteredPublishers);
+
         return "publisher-list.html";
     }
 
@@ -72,9 +75,19 @@ public class PublisherController {
             publisherService.unregister(id);
             return "redirect:/publisher/list";
         } catch (Exception e) {
+            List<Publisher> registeredPublishers = publisherService.listRegistered();
+            List<Publisher> unregisteredPublishers = publisherService.listUnregistered();
+            model.put("registeredPublishers", registeredPublishers);
+            model.put("unregisteredPublishers", unregisteredPublishers);
             model.put("error", e.getMessage());
-            return "publisher-form-edit.html";
+            return "publisher-list.html";
         }
+    }
+
+    @GetMapping("/reestablish")
+    public String reestablishPublisher(@RequestParam String id) {
+        publisherService.reEstablish(id);
+        return "redirect:/publisher/list";
     }
 
 }
