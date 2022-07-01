@@ -1,0 +1,20 @@
+body {
+  font-family: "Inconsolata", monospace;
+  background: rgb(216, 226, 220);
+  background: radial-gradient(
+    circle,
+    rgba(216, 226, 220, 1) 0%,
+    rgba(232, 232, 228, 1) 54%,
+    rgba(236, 228, 219, 1) 100%
+  );
+}
+
+a:link,
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.btn {
+  font-family: inherit;
+}

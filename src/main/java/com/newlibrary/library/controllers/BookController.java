@@ -89,4 +89,9 @@ public class BookController {
         }
         return "redirect:/book/list";
     }
+    
+    public Void hola() {
+    	return null;
+    }
+    
 }

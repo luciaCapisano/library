@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Formulario Editorial</title>
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/form.css" />
+	</head>
+	<body>
+		<div th:insert="/fragments/body :: navbar"></div>
+		<div class="row m-5">
+			<div class="col">
+				<div class="display-2 text-center">EDITAR EDITORIAL</div>
+			</div>
+		</div>
+
+		<div>
+			<form th:action="@{/publisher/edit}" method="POST" th:object="${publisher}">
+				<div th:insert="/fragments/body :: errorRedBlock"></div>
+				<div class="form-group">
+					<input hidden th:field="${publisher.id}"/>
+					<label for="titleInput">Nombre</label>
+					<input type="text" class="form-control" name="name" th:field="${publisher.name}" required/>
+				</div>
+				<label for="flexRadioDefault1">¿Activo?</label>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="registered" value="true" id="flexRadioDefault1">
+						<label class="form-check-label" for="flexRadioDefault1">Si</label>
+					  </div>
+					  <div class="form-check">
+						<input class="form-check-input" type="radio" name="registered" value="false" id="flexRadioDefault2" checked>
+						<label class="form-check-label" for="flexRadioDefault2">No</label>
+					  </div>
+					  <button type="submit" class="btn btn-light">Guardar</button>
+			</form>
+		</div>
+
+		<div class="row m-5">
+			<div class="col d-flex justify-content-center">
+				<button class="btn btn-dark">
+					<a th:href="@{/publisher/list}">Ver lista de Editoriales</a>
+				</button>
+			</div>
+		</div>
+
+		<div th:insert="/fragments/body :: scriptsBootstrap"></div>
+	</body>
+</html>

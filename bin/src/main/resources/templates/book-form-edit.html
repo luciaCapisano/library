@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="http://www.thymeleaf.org">
+	<head th:insert="/fragments/head :: head-form"></head>
+	<body>
+		<div th:insert="/fragments/body :: navbar"></div>
+		<div class="row m-5">
+			<div class="col">
+				<div class="display-2 text-center">AGREGAR UN LIBRO</div>
+			</div>
+		</div>
+
+		<div>
+			<form
+				th:action="@{/book/save}"
+				method="POST"
+				th:object="${book}"
+				class="col-6 mx-auto"
+			>
+				<div class="form-group">
+					<div th:insert="/fragments/body :: errorRedBlock"></div>
+
+					<input hidden th:field="${book.id}"/>
+
+					<label for="isbn">ISBN</label>
+					<input type="number" class="form-control" name="isbn" th:field="${book.isbn}" required/>
+				</div>
+				<div class="form-group">
+					<label for="title">Título</label>
+					<input type="text" class="form-control" name="title" th:field="${book.title}" required/>
+				</div>
+
+				<div class="form-group">
+					<label for="author" class="form-label mt-4">Autor</label>
+					<select class="form-select" name="idAuthor" th:field="${book.author.id}">
+						<option
+							th:each="a : ${authors}"
+							th:text="${a.name}"
+							th:value="${a.id}"
+						></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="publisher" class="form-label mt-4">Editorial</label>
+					<select class="form-select" name="idPublisher" th:field="${book.publisher.id}">
+						<option
+							th:each="p : ${publishers}"
+							th:text="${p.name}"
+							th:value="${p.id}"
+						></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="legalYear">Año</label>
+					<input type="number" class="form-control" name="legalYear" th:field="${book.legalYear}" required/>
+				</div>
+				<div class="form-group">
+					<label for="totalQuantity">Cantidad total de ejemplares</label>
+					<input type="number" class="form-control" name="totalQuantity" th:field="${book.totalQuantity}" min="0" required/>
+				</div>
+				<div class="form-group">
+					<label for="givenQuantity">Cantidad de ejemplares prestados</label>
+					<input type="number" class="form-control" name="givenQuantity" th:field="${book.givenQuantity}" min="0" required/>
+				</div>
+				<div class="col d-flex justify-content-center">
+					<button type="submit" class="btn btn-light">Guardar</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="row m-5">
+			<div class="col d-flex justify-content-center">
+				<button class="btn btn-dark">
+					<a th:href="@{/book/list}">Ver lista de libros</a>
+				</button>
+			</div>
+		</div>
+
+		<div th:insert="/fragments/body :: scriptsBootstrap"></div>
+	</body>
+</html>
